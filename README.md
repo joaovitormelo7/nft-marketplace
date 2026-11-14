@@ -1,101 +1,60 @@
 # KURIO — NFT Marketplace
 
-A página inicial foi adaptada à referência visual com paleta marrom/laranja, filtros laterais, destaques e nove cards por página. As cinco ilustrações de personagens são geradas e inspiradas na referência, pois a exportação dos assets originais do Figma não ficou disponível. A fonte IBM Plex Mono é servida localmente, com licença em `public/fonts`. As credenciais e o cupom NEXUS10 continuam iguais aos descritos abaixo.
+Projeto em React e TypeScript para um desafio de frontend. Tem catálogo de NFTs, filtros, favoritos, carrinho, compra simulada e gerenciamento de conta e carteiras.
 
-Marketplace demonstrativo em React e TypeScript para o desafio técnico. Todo o fluxo usa REST interceptado por MSW. Os eventos em tempo real passam por `socket.io-client` e pela ligação `@mswjs/socket.io-binding` no MSW. Não há blockchain nem pagamento real.
+Os dados ficam no navegador e as chamadas de API são simuladas com MSW. Não há pagamento real nem integração com blockchain.
 
-## Executar
+## Rodar o projeto
 
-Requisitos: Node.js 20.19+ e npm 10+.
+Use Node.js 20.19 ou superior e npm 10 ou superior.
 
 ```bash
 npm ci
-npx msw init public --save
 npm run dev
 ```
 
-Abra `http://127.0.0.1:5173`. Para o build de demonstração:
+Abra http://127.0.0.1:5173.
+
+Para testar o build de produção:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-Os mocks são ativados por padrão, inclusive no build. `VITE_MOCKS=off` desativa o worker para ligar a interface a um servidor REST próprio em `/api`. A camada de UI não possui dados alternativos quando os mocks estão desligados.
+Os mocks também funcionam no build. Para desativá-los, defina `VITE_MOCKS=off` em `.env.local`; nesse caso, é necessário fornecer uma API em `/api`.
 
 ## Contas de teste
 
-| E-mail             | Senha      |
-| ------------------ | ---------- |
-| `ada@nexus.test`   | `Demo123!` |
-| `bruno@nexus.test` | `Demo123!` |
+| E-mail           | Senha    |
+| ---------------- | -------- |
+| ada@nexus.test   | Demo123! |
+| bruno@nexus.test | Demo123! |
 
-O cupom válido é `NEXUS10` (10% do subtotal). `EXPIRED` simula um cupom expirado. As senhas ficam como hashes SHA-256 nos dados simulados; este mecanismo não representa um backend de autenticação de produção.
+O cupom `NEXUS10` dá 10% de desconto. Use `EXPIRED` para testar um cupom expirado.
 
-## Cenários e reprodução
+## Testar os cenários
 
-No rodapé, abra **Cenários da demonstração**. Os controles chamam `POST /api/demo`, portanto atualizam o mesmo estado usado pelos handlers REST e pelos eventos.
+No rodapé, abra **Cenários da demonstração**. Você pode alterar o preço ou esgotar o NFT 1, recusar o pagamento, simular perda da resposta de um pedido, falhar uma consulta, aumentar a latência, expirar a sessão ou interromper o socket.
 
-| Cenário              | Como reproduzir                                                                                                                             |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Alteração de preço   | Ponha o NFT 1 no carrinho, abra o checkout e acione **Aumentar preço do NFT 1**. A cotação nova exige outra revisão.                        |
-| Edição esgotada      | Ponha o NFT 1 no carrinho e acione **Esgotar NFT 1**. A compra é bloqueada.                                                                 |
-| Pagamento recusado   | Acione **Recusar próximo pagamento** antes de confirmar. O pedido termina como recusado e os itens ficam no carrinho.                       |
-| Timeout após criação | Acione **Timeout após criar pedido**. Na tela de checkout, confirme e tente novamente. A chave de idempotência reaproveita o pedido criado. |
-| Falha HTTP           | Acione **Falhar próxima consulta de NFTs** e atualize o catálogo. Use **Tentar novamente**.                                                 |
-| Latência             | Acione **Carregamento lento (2 s)** e navegue; os skeletons são exibidos durante o carregamento.                                            |
-| Sessão expirada      | Entre, acione **Expirar sessão** e navegue para uma rota privada. **Restaurar sessão** remove a falha simulada.                             |
-| Queda do socket      | Acione **Interromper socket**. O cliente reconecta e reconsulta recursos ativos.                                                            |
-| Reset                | **Restaurar cenário padrão** limpa contas criadas, pedidos, carrinho, favoritos e sessão e restaura as fixtures.                            |
+Para testar mudanças de preço e estoque, coloque o NFT 1 no carrinho antes de ativar o cenário. Para recusar um pagamento, ative a opção antes de confirmar a compra. Depois de expirar a sessão, use **Restaurar sessão** para liberar as requisições novamente.
 
-Para testes automatizados, chame `POST /api/demo` com `{ "action": "reset" }` ao iniciar cada caso. A configuração é persistida em `localStorage` para resistir a refresh.
+Os dados permanecem após atualizar a página. **Restaurar cenário padrão** apaga os dados da demonstração e volta às contas e ao catálogo iniciais.
 
-## Verificações
+## Comandos úteis
 
-```bash
-npm run typecheck
-npm run lint
-npm run test:e2e
-npm run build
-npm run preview
-npm run audit
-```
+| Comando                | Para quê                      |
+| ---------------------- | ----------------------------- |
+| `npm run typecheck`    | Conferir os tipos             |
+| `npm run lint`         | Verificar o código            |
+| `npm run format`       | Formatar os arquivos          |
+| `npm run format:check` | Conferir a formatação         |
+| `npm run test:e2e`     | Executar os testes Playwright |
+| `npm run test:e2e:ui`  | Abrir a interface dos testes  |
+| `npm run audit`        | Executar o Lighthouse         |
 
-A formatação usa Prettier com dois espaços e configuração versionada. Para formatar o código e os documentos mantidos no projeto:
+Antes dos testes, instale o navegador com `npx playwright install chromium`. O relatório fica em `playwright-report`.
 
-```bash
-npm run format
-npm run format:check
-```
+Para o Lighthouse, deixe o build rodando com `npm run preview` na porta 4173. Os relatórios ficam em `reports/lighthouse`.
 
-Dependências, build, relatórios, worker gerado, SVGs gerados e licenças são preservados pela configuração de exclusão. Os materiais pessoais de estudo e os relatórios internos da revisão não fazem parte da entrega; `README.md`, `ARCHITECTURE.md` e as informações de origem/licença dos assets devem permanecer.
-
-Instale o Chromium do Playwright com `npx playwright install chromium` se necessário. O Playwright gera relatório HTML em `playwright-report` e preserva traces nas falhas. A auditoria Lighthouse requer o preview do build em `127.0.0.1:4173`; produz HTML/JSON em `reports/lighthouse`.
-
-## Contratos
-
-Todos os valores monetários transitam como strings decimais em ETH. Quantidades são inteiras. Respostas de erro têm `{ code, message, fields? }`.
-
-| Método            | Rota                             | Responsabilidade                                           |
-| ----------------- | -------------------------------- | ---------------------------------------------------------- |
-| `GET/POST/DELETE` | `/api/session`                   | Consulta, login e logout                                   |
-| `POST`            | `/api/users`                     | Cadastro                                                   |
-| `GET`             | `/api/nfts`                      | Listagem com `q`, `category`, `min`, `max`, `sort`, `page` |
-| `GET`             | `/api/nfts/:id`                  | Detalhe                                                    |
-| `GET/PUT/DELETE`  | `/api/favorites[/:id]`           | Favoritos autenticados                                     |
-| `GET`             | `/api/cart`                      | Carrinho visitante ou do usuário                           |
-| `POST/PUT/DELETE` | `/api/cart/items[/:id/:edition]` | Inclusão, quantidade, remoção                              |
-| `PUT`             | `/api/cart/coupon`               | Aplica/remove cupom                                        |
-| `GET`             | `/api/quote`                     | Cotação atual e fingerprint                                |
-| `GET/POST`        | `/api/orders`                    | Lista e cria pedido                                        |
-| `GET`             | `/api/orders/:id`                | Estado e recibo congelado                                  |
-| `GET/PUT`         | `/api/profile`                   | Perfil                                                     |
-| `PUT`             | `/api/profile/password`          | Senha                                                      |
-| `GET/POST/PUT`    | `/api/wallets[/:id]`             | Carteiras                                                  |
-| `POST`            | `/api/demo`                      | Seleção e reset de cenários                                |
-
-`POST /api/orders` recebe `walletId`, `network`, `fingerprint` e `idempotencyKey`. A mesma chave e o mesmo conteúdo devolvem o mesmo pedido; a mesma chave com conteúdo diferente devolve `409`. Uma cotação que mudou devolve `409 QUOTE_CHANGED`. O pedido começa `pending` e termina `confirmed` ou `declined`.
-
-O socket usa o caminho `/socket.io/`, transporte WebSocket, namespace padrão e eventos `nft.updated` e `order.updated`. Cada payload tem `id`, `resourceId` e `version`; pedidos também têm `userId`. O cliente ignora duplicatas/versões antigas, filtra por usuário e revalida os recursos por REST após reconectar.
-
-Veja [ARCHITECTURE.md](./ARCHITECTURE.md) para decisões de sessão, cache, consistência e limites conhecidos.
+As imagens dos personagens foram geradas a partir da referência visual e não são exportações originais do Figma. Os assets e a fonte IBM Plex Mono estão em `public`, com informações de origem e licença.
