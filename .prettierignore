@@ -1,0 +1,11 @@
+node_modules/
+dist/
+reports/
+playwright-report/
+test-results/
+.lighthouseci/
+package-lock.json
+*.tsbuildinfo
+public/mockServiceWorker.js
+public/art/*.svg
+public/fonts/*LICENSE*

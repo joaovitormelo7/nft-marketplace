@@ -1,0 +1,966 @@
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-latin-700-normal.woff2") format("woff2");
+}
+
+body {
+  font-size: 13px;
+  line-height: 1.65;
+}
+.container {
+  width: min(100% - 64px, 1200px);
+}
+.button {
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.button-default {
+  color: #1b1009;
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: none;
+}
+.button-default:hover:not(:disabled) {
+  background: #e1a15f;
+  transform: none;
+}
+.button-outline {
+  border-color: #59402e;
+}
+.button-default,
+.button-outline,
+.button-ghost,
+.button-danger {
+  padding: 10px 17px;
+}
+.button-sm {
+  padding: 5px 11px;
+  font-size: 11px;
+}
+.field {
+  border-radius: 3px;
+}
+.display-title {
+  letter-spacing: -0.045em;
+  font-weight: 600;
+}
+.footer {
+  margin-top: 64px;
+  font-size: 11px;
+}
+.footer .logo {
+  font-size: 16px;
+}
+.logo {
+  display: inline-flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #f5eee5;
+}
+.site-header {
+  height: 72px;
+  background: var(--color-background);
+}
+.header-inner {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  border-bottom: 1px solid #3b2a1c;
+  gap: 25px;
+}
+.desktop-nav {
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  gap: 32px;
+}
+.desktop-nav a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: #e2d4c4;
+}
+.desktop-nav .nav-active {
+  color: #e7ae68;
+}
+.desktop-nav .nav-active::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 2px;
+  background: #d28a4c;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+}
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: #e5d2ba;
+  background: none;
+  border: 0;
+  padding: 3px;
+}
+.icon-link:hover {
+  color: #f4b671;
+}
+.icon-link svg {
+  width: 18px;
+  height: 18px;
+}
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 13px;
+  height: 13px;
+  padding-inline: 2px;
+  display: grid;
+  place-items: center;
+  background: #d28a4c;
+  color: #170d08;
+  font-size: 8px;
+  border-radius: 50%;
+  line-height: 1;
+}
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.mobile-menu,
+.mobile-nav {
+  display: none;
+}
+
+.market-home .hero {
+  background: none;
+}
+.market-home .hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 450px;
+  gap: 110px;
+  align-items: center;
+  min-height: 580px;
+  padding-block: 32px 72px;
+}
+.hero-welcome {
+  font-size: 12px;
+  letter-spacing: 0.035em;
+  color: #e4d5c3;
+  margin: 0 0 20px;
+}
+.market-home h1 {
+  margin: 0 0 18px;
+  font-family: var(--font-body);
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1.55;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+.hero-description {
+  max-width: 545px;
+  font-size: 12px;
+  line-height: 1.9;
+  color: #bfa88b;
+  margin: 0;
+}
+.market-home .hero-cta {
+  margin-top: 25px;
+  padding: 10px 24px;
+  font-size: 12px;
+}
+.market-home .hero-art {
+  position: relative;
+  min-width: 0;
+}
+.market-home .hero-feature {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 23px;
+}
+.market-home .hero-feature img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.hero-image-skeleton,
+.hero-load-error {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 23px;
+}
+.hero-load-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  background: var(--color-surface);
+  padding: 30px;
+}
+.hero-pagination {
+  position: absolute;
+  right: calc(100% + 34px);
+  bottom: 44px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hero-pagination button {
+  border: 0;
+  padding: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #76502d;
+  position: relative;
+}
+.hero-pagination button::after {
+  content: "";
+  position: absolute;
+  inset: -9px;
+}
+.hero-pagination button.active {
+  background: #e4a05c;
+}
+.marketplace-section {
+  display: grid;
+  grid-template-columns: 310px minmax(0, 1fr);
+  align-items: start;
+  gap: 0 34px;
+  padding-top: 14px;
+  padding-bottom: 30px;
+  scroll-margin-top: 25px;
+}
+.catalog-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.facet-panel {
+  padding: 24px 24px 28px;
+  background: var(--color-surface);
+  color: #b99b76;
+}
+.facet-panel fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 38px;
+  min-width: 0;
+}
+.facet-panel fieldset:last-of-type {
+  margin-bottom: 0;
+}
+.facet-panel legend {
+  display: block;
+  color: #f3e8d9;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0 0 14px;
+  padding: 0;
+}
+.collection-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.collection-options button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  min-height: 35px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #b99b76;
+  background: none;
+  border: 0;
+  text-align: left;
+}
+.collection-options button:hover,
+.collection-options button.is-selected {
+  color: #f1b46e;
+}
+.collection-options button.is-selected span:first-child {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.range-filter {
+  margin-bottom: 32px;
+}
+.range-track {
+  position: relative;
+  height: 19px;
+  margin-bottom: 10px;
+}
+.range-track::before {
+  position: absolute;
+  content: "";
+  height: 4px;
+  inset: 7px 0 auto;
+  border-radius: 3px;
+  background: #82522e;
+}
+.range-track input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 19px;
+  inset: 0;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+}
+.range-track input::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #53351f;
+  background: #d99651;
+  border-radius: 50%;
+  pointer-events: auto;
+  cursor: ew-resize;
+}
+.range-track input::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border: 2px solid #53351f;
+  background: #d99651;
+  border-radius: 50%;
+  pointer-events: auto;
+  cursor: ew-resize;
+}
+.range-track input:focus-visible {
+  outline-offset: 7px;
+}
+.range-caption {
+  color: #c6b4a2;
+  font-size: 10px;
+  margin: 7px 0 12px;
+  white-space: nowrap;
+}
+.range-filter .button {
+  font-size: 11px;
+  padding: 7px 13px;
+}
+.clear-filters {
+  margin-top: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #e4a15c;
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.spotlight-card {
+  display: block;
+  overflow: hidden;
+  background: #24170f;
+  text-align: center;
+  padding-top: 18px;
+}
+.spotlight-card > span {
+  display: block;
+  color: #d69046;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.05em;
+}
+.spotlight-card > strong {
+  display: block;
+  color: #f3e8d9;
+  margin: 6px 0 13px;
+  font-size: 17px;
+}
+.spotlight-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 310/380;
+  object-fit: cover;
+  object-position: 50% 30%;
+  border-radius: 20px 20px 0 0;
+}
+.catalog-results {
+  min-width: 0;
+}
+.catalog-controls {
+  min-height: 40px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.catalog-tabs {
+  display: flex;
+  gap: 21px;
+  align-items: center;
+  white-space: nowrap;
+}
+.catalog-tabs button {
+  padding: 0 0 10px;
+  font-size: 11px;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: none;
+  color: #f0e3d2;
+}
+.catalog-tabs button.active {
+  color: #dfa05b;
+  border-color: #b98246;
+}
+.catalog-sort {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+  font-size: 10px;
+  color: #b8a18d;
+  white-space: nowrap;
+  padding-top: 1px;
+}
+.catalog-sort select {
+  background: transparent;
+  border: none;
+  appearance: none;
+  color: #ded1c3;
+  font-size: 10px;
+  cursor: pointer;
+  max-width: 165px;
+  padding: 0 14px 3px 0;
+}
+.catalog-sort option {
+  background: #241612;
+}
+.catalog-sort svg {
+  position: absolute;
+  right: 0;
+  pointer-events: none;
+  top: 3px;
+}
+.catalog-search {
+  display: none;
+  grid-column: 1/-1;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #513824;
+  background: #20140e;
+  padding: 4px 12px;
+  margin: 0 0 24px;
+  scroll-margin-top: 25px;
+}
+.catalog-search:target,
+.catalog-search.search-active,
+.catalog-search:focus-within {
+  display: flex;
+}
+.catalog-search .field {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  min-height: 36px;
+  font-size: 12px;
+}
+.catalog-search > button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  color: #e2bc8c;
+  border: 0;
+}
+.catalog-search > .mobile-filter-trigger {
+  display: none;
+}
+.active-filter-summary {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin: 0 0 16px;
+  color: #bda98f;
+  font-size: 11px;
+}
+.active-filter-summary button {
+  border: 0;
+  background: none;
+  color: #e2a460;
+  text-decoration: underline;
+}
+.market-home .updating {
+  margin: 0 0 12px;
+  color: #d8a86d;
+  font-size: 11px;
+}
+.market-home .nft-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 46px 24px;
+}
+.market-home .nft-card {
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+}
+.nft-artwork {
+  position: relative;
+  padding: 13px;
+  background: #241712;
+}
+.market-home .nft-image-link {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9px 9px 0 0;
+  aspect-ratio: 1;
+}
+.market-home .nft-image-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+.market-home .nft-artwork:hover .nft-image-link img {
+  transform: scale(1.025);
+}
+.nft-badge {
+  position: absolute;
+  z-index: 1;
+  top: 4px;
+  left: 13px;
+  padding: 3px 10px;
+  background: #d28a4c;
+  color: #21140a;
+  text-transform: uppercase;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.card-quick-actions {
+  position: absolute;
+  bottom: 13px;
+  left: 13px;
+  right: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  height: 42px;
+  background: #21140edb;
+  opacity: 0;
+  transition: opacity 0.18s;
+}
+.card-quick-actions button,
+.card-quick-actions a {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  color: #efcf9d;
+}
+.card-quick-actions button:hover,
+.card-quick-actions a:hover {
+  color: white;
+}
+.nft-artwork:hover .card-quick-actions,
+.nft-artwork:focus-within .card-quick-actions {
+  opacity: 1;
+}
+.market-home .nft-card-body {
+  padding: 11px 13px 0;
+}
+.market-home .card-title {
+  display: block;
+  margin: 0;
+  color: #dbceba;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+.card-price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+}
+.card-price strong {
+  color: #e2a15b;
+  font-weight: 600;
+}
+.card-price del {
+  color: #a49077;
+  font-size: 11px;
+}
+.sold-out {
+  color: #e6ba99;
+  font-size: 10px;
+}
+.card-image-skeleton {
+  aspect-ratio: 1;
+  border: 13px solid #241712;
+}
+.card-title-skeleton {
+  height: 13px;
+  width: 70%;
+  margin: 13px 13px 6px;
+}
+.card-price-skeleton {
+  height: 13px;
+  width: 45%;
+  margin-left: 13px;
+}
+.market-home .pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  margin: 38px 0 0;
+}
+.market-home .pagination button {
+  min-width: 28px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  padding: 2px 5px;
+  color: #bd976c;
+  background: none;
+  border: 1px solid #4b2e19;
+  font-size: 12px;
+  border-radius: 2px;
+}
+.market-home .pagination button.current {
+  background: #d28a4c;
+  color: #241307;
+  border-color: #d28a4c;
+}
+.market-home .pagination .pagination-arrow {
+  border-color: transparent;
+}
+.market-home .pagination button:disabled {
+  opacity: 0.3;
+}
+.dialog-content {
+  max-height: min(85dvh, 800px);
+  overflow-y: auto;
+}
+.dialog-content .facet-panel {
+  background: transparent;
+  padding: 22px 0;
+}
+
+@media (max-width: 1190px) {
+  .market-home .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 40%);
+    gap: 50px;
+    min-height: 510px;
+  }
+  .market-home h1 {
+    font-size: clamp(28px, 3.2vw, 38px);
+  }
+  .marketplace-section {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 0 24px;
+  }
+  .catalog-controls {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .catalog-sort {
+    margin-left: auto;
+  }
+  .market-home .nft-grid {
+    gap: 30px 16px;
+  }
+  .nft-artwork {
+    padding: 9px;
+  }
+  .market-home .nft-card-body {
+    padding-inline: 9px;
+  }
+  .desktop-nav {
+    gap: 22px;
+  }
+}
+@media (max-width: 900px) {
+  .marketplace-section {
+    grid-template-columns: 210px minmax(0, 1fr);
+    gap: 0 20px;
+  }
+  .market-home .nft-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .facet-panel {
+    padding: 20px 16px;
+  }
+  .market-home .hero-grid {
+    gap: 32px;
+    min-height: 440px;
+  }
+  .hero-description {
+    font-size: 10px;
+  }
+  .desktop-break {
+    display: none;
+  }
+  .hero-pagination {
+    right: calc(100% + 12px);
+  }
+}
+@media (max-width: 760px) {
+  .container {
+    width: calc(100% - 32px);
+  }
+  .site-header {
+    height: 62px;
+    position: relative;
+    z-index: 20;
+  }
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+  }
+  .desktop-nav,
+  .profile-link {
+    display: none;
+  }
+  .header-actions {
+    gap: 18px;
+  }
+  .header-actions > .icon-link:first-child {
+    display: none;
+  }
+  .mobile-menu {
+    display: inline-flex;
+  }
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    padding: 14px 24px;
+    background: #241612;
+    border-bottom: 1px solid #654126;
+    gap: 0;
+  }
+  .mobile-nav a,
+  .mobile-nav button {
+    text-align: left;
+    font-size: 13px;
+    color: #ead6b8;
+    background: none;
+    border: 0;
+    padding: 11px 0;
+  }
+  .market-home {
+    display: flex;
+    flex-direction: column;
+  }
+  .market-home .hero {
+    order: 1;
+  }
+  .market-home .hero-grid {
+    padding: 28px 0 48px;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(135px, 40%);
+    gap: 20px;
+  }
+  .hero-welcome {
+    font-size: 9px;
+    margin-bottom: 9px;
+  }
+  .market-home h1 {
+    font-size: clamp(18px, 3.6vw, 27px);
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+  .hero-description {
+    font-size: 9px;
+    line-height: 1.8;
+  }
+  .market-home .hero-cta {
+    font-size: 10px;
+    padding: 8px 15px;
+    margin-top: 15px;
+  }
+  .market-home .hero-feature,
+  .hero-image-skeleton {
+    border-radius: 13px;
+  }
+  .hero-pagination {
+    right: 8px;
+    bottom: -20px;
+  }
+  .marketplace-section {
+    order: 2;
+    display: block;
+    padding-top: 0;
+  }
+  .catalog-sidebar {
+    display: none;
+  }
+  .catalog-search,
+  .catalog-search:target {
+    display: flex;
+    margin-bottom: 24px;
+    background: #2c1a11;
+    border: 0;
+    border-radius: 7px;
+    padding: 3px 8px;
+  }
+  .catalog-search .field {
+    padding-inline: 0;
+    font-size: 11px;
+  }
+  .catalog-search > .mobile-filter-trigger {
+    display: inline-flex;
+    background: #d28a4c;
+    color: #26160a;
+    border-radius: 5px;
+  }
+  .catalog-controls {
+    min-height: 0;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  .catalog-tabs {
+    gap: 18px;
+  }
+  .catalog-tabs button {
+    font-size: 10px;
+  }
+  .catalog-sort {
+    margin-left: 0;
+  }
+  .catalog-sort > span {
+    display: none;
+  }
+  .catalog-sort select {
+    font-size: 9px;
+  }
+  .market-home .nft-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 14px;
+  }
+  .nft-artwork {
+    padding: 7px;
+    border-radius: 8px;
+  }
+  .market-home .nft-image-link {
+    border-radius: 8px;
+  }
+  .market-home .nft-card-body {
+    padding: 7px 3px 0;
+  }
+  .market-home .card-title {
+    font-size: 10px;
+  }
+  .card-price {
+    font-size: 11px;
+    gap: 5px;
+  }
+  .card-price del {
+    font-size: 9px;
+  }
+  .nft-badge {
+    left: 7px;
+    top: 0;
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+  .card-quick-actions {
+    position: static;
+    opacity: 1;
+    background: transparent;
+    height: 29px;
+    gap: 14px;
+    margin-top: 3px;
+  }
+  .card-quick-actions button,
+  .card-quick-actions a {
+    width: 30px;
+    height: 29px;
+  }
+  .card-quick-actions svg {
+    width: 15px;
+    height: 15px;
+  }
+  .market-home .pagination {
+    justify-content: center;
+  }
+  .footer {
+    margin-top: 30px;
+    padding-top: 30px;
+  }
+  .footer-inner {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+@media (max-width: 390px) {
+  .market-home .hero-grid {
+    gap: 12px;
+    grid-template-columns: minmax(0, 1fr) 135px;
+  }
+  .market-home h1 {
+    font-size: 17px;
+  }
+  .hero-description {
+    font-size: 8px;
+  }
+  .catalog-tabs {
+    gap: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .market-home .nft-image-link img {
+    transition: none;
+  }
+  .market-home .nft-artwork:hover .nft-image-link img {
+    transform: none;
+  }
+}

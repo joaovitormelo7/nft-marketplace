@@ -1,0 +1,11 @@
+node_modules
+dist
+playwright-report
+test-results
+.lighthouseci
+.env.local
+*.tsbuildinfo
+
+# Materiais internos de revisão; os relatórios Lighthouse são parte da entrega.
+/reports/review-2026-11-12/
+/reports/kurio-preview/
